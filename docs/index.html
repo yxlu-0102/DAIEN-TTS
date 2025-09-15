@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DAIEN-TTS</title>
+  <!-- <link rel="icon" type="image/x-icon" href="static/images/favicon.ico"> -->
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+  rel="stylesheet">
+
+  <link rel="stylesheet" href="css/bulma.min.css">
+  <link rel="stylesheet" href="css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="css/bulma-slider.min.css">
+  <link rel="stylesheet" href="css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="js/fontawesome.all.min.js"></script>
+  <script src="js/bulma-carousel.min.js"></script>
+  <script src="js/bulma-slider.min.js"></script>
+  <script src="js/index.js"></script>
+</head>
+<body>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">DAIEN-TTS: Disentangled Audio Infilling for Environment-Aware Text-to-Speech Synthesis</h1>
+            <div class="is-size-5 publication-authors">
+              <!-- Paper authors -->
+              <span class="author-block"><a href="https://yxlu-0102.github.io" target="_blank"><b>Ye-Xin Lu<sup>1</sup></b></a>,</span>
+              <span class="author-block">Yu Gu<sup>1</sup>,</span>
+              <span class="author-block">Kun Wei,</span>
+              <span class="author-block">Hui-Peng Du<sup>1</sup>,</span>
+              <span class="author-block"><a href="https://faculty.ustc.edu.cn/aiyang/en/index.htm" target="_blank">Yang Ai<sup>1</sup></a>,</span>
+              <span class="author-block"><a href="http://staff.ustc.edu.cn/~zhling" target="_blank">Zhen-Hua Ling<sup>1</sup></a>,</span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><sup>1</sup>National Engineering Research Center of Speech and Language Information Processing <br> University of Science and Technology of China<br></span>
+            </div>
+
+            <!-- <div class="column has-text-centered">
+              <div class="publication-links">
+                <span class="link-block">
+                  <a href="https://github.com/yxlu-0102/DAIEN-TTS" target="_blank"
+                      class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a href="https://arxiv.org" target="_blank"
+                      class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>Paper</span>
+                  </a>
+                </span>
+              </div>
+            </div> -->
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Paper abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            This paper presents DAIEN-TTS, a zero-shot text-to-speech (TTS) framework that enables ENvironment-aware synthesis through Disentangled Audio Infilling. 
+            Built upon F5-TTS, the proposed DAIEN-TTS first incorporates a pre-trained speech–environment separation (SES) module to disentangle the environmental speech into clean speech mel-spectrogram and environmental audio mel-spectrogram.
+            Two random span masks of varying lengths are then applied to both mel-spectrograms, which, together with the text embedding, serve as conditions for infilling the target environmental mel-spectrogram, enabling the simultaneous continuation of personalized speech and time-varying environmental audio. 
+            During inference, DAIEN-TTS leverages two environmental speech prompts, a speaker prompt and an environment prompt, to independently control the timbre and the background environment of synthesized speech.
+            To further ensure that the synthesized speech matches the SNR of the environment prompt, we introduce a signal-to-noise ratio (SNR) adaptation strategy.
+            Experimental results demonstrate that DAIEN-TTS generates personalized environmental speech with high naturalness, strong speaker similarity, and high environmental fidelity.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End paper abstract -->
+
+<br>
+<section class="hero">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-centered">
+        <h2 class="title is-3">I. Environment-Robust TTS Task</h2>
+      </div>
+    </div>
+  </div>
+  <br>
+  <table align = "center" style="text-align: center;">
+    <!-- <tr style="height: 40px; background-color: #f0f0f0;">
+      <td colspan="6" style="text-align: center; vertical-align: middle; font-size: 1.1em;"><b>Text Prompt: The groupings listed here are from the New Zealand Society.</b></td>
+    </tr> -->
+    <tr style="height: 40px;">
+      <td style="text-align: center; vertical-align: middle;"><b>Text Prompt</b></th>
+      <td style="text-align: center; vertical-align: middle;"><b>Speaker Prompt</b></th>
+      <td style="text-align: center; vertical-align: middle;"><b>Human</b></th>
+      <td style="text-align: center; vertical-align: middle;"><b>F5-TTS (Clean Spk Prompt)</b></th>
+      <td style="text-align: center; vertical-align: middle;"><b>F5-TTS</b></th>
+      <td style="text-align: center; vertical-align: middle;"><b>DAIEN-TTS (w/o CA)</b></th>
+      <td style="text-align: center; vertical-align: middle;"><b>DAIEN-TTS</b></th>
+    </tr>
+    <tr>
+      <td style="text-align: center; vertical-align: middle; width: 350px; height: 50px;"><b>My dog is an alsatian, we call her 'Poppy'.</b></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/ERTTS/G/G_01.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/ERTTS/B/B_01.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/ERTTS/C/C_01.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/ERTTS/D/D_01.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/ERTTS/E/E_01.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/ERTTS/F/F_01.wav" type="audio/wav"></audio></td>
+    </tr>
+    <tr>
+      <td colspan="7">&nbsp;</td> <!-- Empty row -->
+    </tr>
+    <tr>
+      <td style="text-align: center; vertical-align: middle; width: 350px; height: 50px;"><b>All that time the Martians must have been getting ready.</b></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/ERTTS/G/G_02.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/ERTTS/B/B_02.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/ERTTS/C/C_02.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/ERTTS/D/D_02.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/ERTTS/E/E_02.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/ERTTS/F/F_02.wav" type="audio/wav"></audio></td>
+    </tr>
+    <tr>
+      <td colspan="7">&nbsp;</td> <!-- Empty row -->
+    </tr>
+    <tr>
+      <td style="text-align: center; vertical-align: middle; width: 350px; height: 50px;"><b>This was the strangest of all things that ever came to earth from outer space.</b></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/ERTTS/G/G_03.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/ERTTS/B/B_03.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/ERTTS/C/C_03.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/ERTTS/D/D_03.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/ERTTS/E/E_03.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/ERTTS/F/F_03.wav" type="audio/wav"></audio></td>
+    </tr>
+    <tr>
+      <td colspan="7">&nbsp;</td> <!-- Empty row -->
+    </tr>
+    <tr>
+      <td style="text-align: center; vertical-align: middle; width: 350px; height: 50px;"><b>The groupings listed here are from the New Zealand Society.</b></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/ERTTS/G/G_04.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/ERTTS/B/B_04.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/ERTTS/C/C_04.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/ERTTS/D/D_04.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/ERTTS/E/E_04.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/ERTTS/F/F_04.wav" type="audio/wav"></audio></td>
+    </tr>
+    <tr>
+      <td colspan="7">&nbsp;</td> <!-- Empty row -->
+    </tr>
+    <tr>
+      <td style="text-align: center; vertical-align: middle; width: 350px; height: 50px;"><b>Then why should they be surprised when they see one?</b></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/ERTTS/G/G_05.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/ERTTS/B/B_05.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/ERTTS/C/C_05.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/ERTTS/D/D_05.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/ERTTS/E/E_05.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/ERTTS/F/F_05.wav" type="audio/wav"></audio></td>
+    </tr>
+    <tr>
+      <td colspan="7">&nbsp;</td> <!-- Empty row -->
+    </tr>
+    <tr>
+      <td style="text-align: center; vertical-align: middle; width: 350px; height: 50px;"><b>But as he saw them lying there on the ground, another phrase came to his mind.</b></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/ERTTS/G/G_06.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/ERTTS/B/B_06.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/ERTTS/C/C_06.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/ERTTS/D/D_06.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/ERTTS/E/E_06.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/ERTTS/F/F_06.wav" type="audio/wav"></audio></td>
+    </tr>
+    <tr>
+      <td colspan="7">&nbsp;</td> <!-- Empty row -->
+    </tr>
+
+  </table>
+</section>
+
+<hr>
+
+<section class="hero">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-centered">
+        <h2 class="title is-3">II. Environment-Aware TTS Task</h2>
+      </div>
+    </div>
+  </div>
+  <br>
+  <table align = "center" style="text-align: center;">
+    <tr style="height: 40px;">
+      <td style="text-align: center; vertical-align: middle;"><b>Text Prompt</b></th>
+      <td style="text-align: center; vertical-align: middle;"><b>Speaker Prompt</b></th>
+      <td style="text-align: center; vertical-align: middle;"><b>Environment Prompt</b></th>
+      <td style="text-align: center; vertical-align: middle;"><b>Human+Environment</b></th>
+      <td style="text-align: center; vertical-align: middle;"><b>Vocoder Resynthesized</b></th>
+      <td style="text-align: center; vertical-align: middle;"><b>DAIEN-TTS (w/o CA)</b></th>
+      <td style="text-align: center; vertical-align: middle;"><b>DAIEN-TTS</b></th>
+    </tr>
+    <tr>
+      <td style="text-align: center; vertical-align: middle; width: 350px; height: 50px;"><b>The people listed below have featured on Gabonese stamps since independence.</b></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/A/A_01.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/B/B_01.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/C/C_01.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/D/D_01.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/E/E_01.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/F/F_01.wav" type="audio/wav"></audio></td>
+    </tr>
+    <tr>
+      <td colspan="7">&nbsp;</td> <!-- Empty row -->
+    </tr>
+    <tr>
+      <td style="text-align: center; vertical-align: middle; width: 350px; height: 50px;"><b>Campbell helped establish branch libraries for Black readers.</b></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/A/A_02.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/B/B_02.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/C/C_02.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/D/D_02.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/E/E_02.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/F/F_02.wav" type="audio/wav"></audio></td>
+    </tr>
+    <tr>
+      <td colspan="7">&nbsp;</td> <!-- Empty row -->
+    </tr>
+    <tr>
+      <td style="text-align: center; vertical-align: middle; width: 350px; height: 50px;"><b>On his return to England, he became a successful portrait painter.</b></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/A/A_03.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/B/B_03.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/C/C_03.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/D/D_03.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/E/E_03.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/F/F_03.wav" type="audio/wav"></audio></td>
+    </tr>
+    <tr>
+      <td colspan="7">&nbsp;</td> <!-- Empty row -->
+    </tr>
+    <tr>
+      <td style="text-align: center; vertical-align: middle; width: 350px; height: 50px;"><b>He later worked as a journalist, and then became a novelist and playwright.</b></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/A/A_04.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/B/B_04.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/C/C_04.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/D/D_04.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/E/E_04.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/F/F_04.wav" type="audio/wav"></audio></td>
+    </tr>
+    <tr>
+      <td colspan="7">&nbsp;</td> <!-- Empty row -->
+    </tr>
+    <tr>
+      <td style="text-align: center; vertical-align: middle; width: 350px; height: 50px;"><b>It is situated across the northeastern rim of the older and larger crater Danjon.</b></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/A/A_05.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/B/B_05.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/C/C_05.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/D/D_05.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/E/E_05.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/F/F_05.wav" type="audio/wav"></audio></td>
+    </tr>
+    <tr>
+      <td colspan="7">&nbsp;</td> <!-- Empty row -->
+    </tr>
+    <tr>
+      <td style="text-align: center; vertical-align: middle; width: 350px; height: 50px;"><b>The medal is made of solid gold and is inscribed with the recipient's name.</b></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/A/A_06.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/B/B_06.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/C/C_06.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/D/D_06.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/E/E_06.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/F/F_06.wav" type="audio/wav"></audio></td>
+    </tr>
+    <tr>
+      <td colspan="7">&nbsp;</td> <!-- Empty row -->
+    </tr>
+    <tr>
+      <td style="text-align: center; vertical-align: middle; width: 350px; height: 50px;"><b>Examples of contract brewers include Epic Brewing Company, Funk Estate and Yeastie Boys.</b></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/A/A_07.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/B/B_07.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/C/C_07.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/D/D_07.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/E/E_07.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/F/F_07.wav" type="audio/wav"></audio></td>
+    </tr>
+    <tr>
+      <td colspan="7">&nbsp;</td> <!-- Empty row -->
+    </tr>
+    <tr>
+      <td style="text-align: center; vertical-align: middle; width: 350px; height: 50px;"><b>However, the music from the former anthem was retained.</b></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/A/A_08.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/B/B_08.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/C/C_08.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/D/D_08.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/E/E_08.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/F/F_08.wav" type="audio/wav"></audio></td>
+    </tr>
+    <tr>
+      <td colspan="7">&nbsp;</td> <!-- Empty row -->
+    </tr>
+    <tr>
+      <td style="text-align: center; vertical-align: middle; width: 350px; height: 50px;"><b>The monastery was inhabited by a succession of three different religious orders.</b></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/A/A_09.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/B/B_09.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/C/C_09.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/D/D_09.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/E/E_09.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/F/F_09.wav" type="audio/wav"></audio></td>
+    </tr>
+    <tr>
+      <td colspan="7">&nbsp;</td> <!-- Empty row -->
+    </tr>
+    <tr>
+      <td style="text-align: center; vertical-align: middle; width: 350px; height: 50px;"><b>Ladies and gentlemen, this wagon is going to be detached.</b></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/A/A_10.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/B/B_10.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/C/C_10.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/D/D_10.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/E/E_10.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/EATTS/F/F_10.wav" type="audio/wav"></audio></td>
+    </tr>
+    <tr>
+      <td colspan="7">&nbsp;</td> <!-- Empty row -->
+    </tr>
+  </table>
+</section>
+
+<!-- Statcounter tracking code -->
+  
+<!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+    <!-- End of Statcounter Code -->
+
+  </body>
+  </html>
