@@ -82,12 +82,12 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            This paper presents DAIEN-TTS, a zero-shot text-to-speech (TTS) framework that enables ENvironment-aware synthesis through Disentangled Audio Infilling. 
-            Built upon F5-TTS, the proposed DAIEN-TTS first incorporates a pre-trained speech–environment separation (SES) module to disentangle the environmental speech into clean speech mel-spectrogram and environmental audio mel-spectrogram.
-            Two random span masks of varying lengths are then applied to both mel-spectrograms, which, together with the text embedding, serve as conditions for infilling the target environmental mel-spectrogram, enabling the simultaneous continuation of personalized speech and time-varying environmental audio. 
-            During inference, DAIEN-TTS leverages two environmental speech prompts, a speaker prompt and an environment prompt, to independently control the timbre and the background environment of synthesized speech.
-            To further ensure that the synthesized speech matches the SNR of the environment prompt, we introduce a signal-to-noise ratio (SNR) adaptation strategy.
-            Experimental results demonstrate that DAIEN-TTS generates personalized environmental speech with high naturalness, strong speaker similarity, and high environmental fidelity.
+          This paper presents DAIEN-TTS, a zero-shot text-to-speech (TTS) framework that enables ENvironment-aware synthesis through Disentangled Audio Infilling.
+          By leveraging separate speaker and environment prompts, DAIEN-TTS allows independent control over the timbre and the background environment of the synthesized speech.
+          Built upon F5-TTS, the proposed DAIEN-TTS first incorporates a pretrained speech-environment separation (SES) module to disentangle the environmental speech into mel-spectrograms of clean speech and environment audio.
+          Two random span masks of varying lengths are then applied to both mel-spectrograms, which, together with the text embedding, serve as conditions for infilling the masked environmental mel-spectrogram, enabling the simultaneous continuation of personalized speech and time-varying environmental audio.
+          To further enhance controllability during inference, we adopt dual class-free guidance (DCFG) for the speech and environment components and introduce a signal-to-noise ratio (SNR) adaptation strategy to align the synthesized speech with the environment prompt.
+          Experimental results demonstrate that DAIEN-TTS generates environmental personalized speech with high naturalness, strong speaker similarity, and high environmental fidelity.
           </p>
         </div>
       </div>
@@ -101,7 +101,7 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-centered">
-        <h2 class="title is-3">I. Environment-Robust TTS Task</h2>
+        <h2 class="title is-3">I. Silence Environment Prompt</h2>
       </div>
     </div>
   </div>
@@ -201,7 +201,7 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-centered">
-        <h2 class="title is-3">II. Environment-Aware TTS Task</h2>
+        <h2 class="title is-3">II. Background Environment Prompt</h2>
       </div>
     </div>
   </div>
