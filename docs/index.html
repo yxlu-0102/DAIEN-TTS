@@ -23,7 +23,6 @@
 </head>
 <body>
 
-
 <section class="hero">
   <div class="hero-body">
     <div class="container is-max-desktop">
@@ -82,12 +81,12 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-          This paper presents DAIEN-TTS, a zero-shot text-to-speech (TTS) framework that enables ENvironment-aware synthesis through Disentangled Audio Infilling.
-          By leveraging separate speaker and environment prompts, DAIEN-TTS allows independent control over the timbre and the background environment of the synthesized speech.
-          Built upon F5-TTS, the proposed DAIEN-TTS first incorporates a pretrained speech-environment separation (SES) module to disentangle the environmental speech into mel-spectrograms of clean speech and environment audio.
-          Two random span masks of varying lengths are then applied to both mel-spectrograms, which, together with the text embedding, serve as conditions for infilling the masked environmental mel-spectrogram, enabling the simultaneous continuation of personalized speech and time-varying environmental audio.
-          To further enhance controllability during inference, we adopt dual class-free guidance (DCFG) for the speech and environment components and introduce a signal-to-noise ratio (SNR) adaptation strategy to align the synthesized speech with the environment prompt.
-          Experimental results demonstrate that DAIEN-TTS generates environmental personalized speech with high naturalness, strong speaker similarity, and high environmental fidelity.
+            This paper presents DAIEN-TTS, a zero-shot text-to-speech (TTS) framework that enables ENvironment-aware synthesis through Disentangled Audio Infilling. 
+            Built upon F5-TTS, the proposed DAIEN-TTS first incorporates a pre-trained speech–environment separation (SES) module to disentangle the environmental speech into clean speech mel-spectrogram and environmental audio mel-spectrogram.
+            Two random span masks of varying lengths are then applied to both mel-spectrograms, which, together with the text embedding, serve as conditions for infilling the target environmental mel-spectrogram, enabling the simultaneous continuation of personalized speech and time-varying environmental audio. 
+            During inference, DAIEN-TTS leverages two environmental speech prompts, a speaker prompt and an environment prompt, to independently control the timbre and the background environment of synthesized speech.
+            To further ensure that the synthesized speech matches the SNR of the environment prompt, we introduce a signal-to-noise ratio (SNR) adaptation strategy.
+            Experimental results demonstrate that DAIEN-TTS generates personalized environmental speech with high naturalness, strong speaker similarity, and high environmental fidelity.
           </p>
         </div>
       </div>
@@ -97,11 +96,45 @@
 <!-- End paper abstract -->
 
 <br>
+
 <section class="hero">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-centered">
-        <h2 class="title is-3">I. Silence Environment Prompt</h2>
+        <h2 class="title is-3">Read-World Demos</h2>
+      </div>
+    </div>
+  </div>
+  <br>
+  <table align = "center" style="text-align: center;">
+    <tr style="height: 40px;">
+      <td style="text-align: center; vertical-align: middle;"><b>Text Prompt</b></th>
+      <td style="text-align: center; vertical-align: middle;"><b>Speaker Prompt</b></th>
+      <td style="text-align: center; vertical-align: middle;"><b>Environment Prompt</b></th>
+      <td style="text-align: center; vertical-align: middle;"><b>DAIEN-TTS</b></th>
+    </tr>
+    <tr>
+      <td style="text-align: center; vertical-align: middle; width: 350px; height: 50px;"><b>After early nightfall the yellow lamps would light up, here and there, the squalid quarter of the brothels.</b></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/Real-World/prompt_speech_real.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/Real-World/prompt_noise_real.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/Real-World/gen_real.wav" type="audio/wav"></audio></td>
+    </tr>
+    <tr>
+      <td style="text-align: center; vertical-align: middle; width: 350px; height: 50px;"><b></b></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/Real-World/prompt_speech_real_2.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/Real-World/prompt_noise_real_2.wav" type="audio/wav"></audio></td>
+      <td><audio controls="" style='display: inline-block; width: 200px; height: 50px;'><source src="samples/Real-World/gen_real_2.wav" type="audio/wav"></audio></td>
+    </tr>
+    </table>
+</section>
+
+<hr>
+
+<section class="hero">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-centered">
+        <h2 class="title is-3">I. Environment-Robust TTS Task</h2>
       </div>
     </div>
   </div>
@@ -201,7 +234,7 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-centered">
-        <h2 class="title is-3">II. Background Environment Prompt</h2>
+        <h2 class="title is-3">II. Environment-Aware TTS Task</h2>
       </div>
     </div>
   </div>
@@ -338,7 +371,6 @@
     </tr>
   </table>
 </section>
-
 <!-- Statcounter tracking code -->
   
 <!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
