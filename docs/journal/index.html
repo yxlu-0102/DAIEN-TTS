@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DAIEN-TTS (Journal)</title>
+  <base href="../">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=Geist:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="css/fontawesome.all.min.css">
+
+  <style>
+    :root {
+      --bg: #F0EEE6;
+      --surface: #FAF9F5;
+      --surface-2: #EAE7DC;
+      --border: #DDD8C7;
+      --text: #1F1E1B;
+      --text-muted: #5C5A52;
+      --accent: #CC785C;
+      --accent-hover: #B8654A;
+      --accent-soft: rgba(204, 120, 92, 0.10);
+      --shadow-sm: 0 1px 2px rgba(31, 30, 27, 0.04);
+      --shadow-md: 0 4px 16px rgba(31, 30, 27, 0.06);
+      --radius: 12px;
+      --radius-sm: 8px;
+      --font-sans: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-serif: 'Source Serif 4', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+      --font-mono: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-serif);
+      font-size: 17px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* ===== Hero / Title ===== */
+    .hero-section {
+      padding: 80px 0 56px;
+      text-align: center;
+    }
+
+    .publication-title {
+      font-family: var(--font-serif);
+      font-weight: 600;
+      font-size: 42px;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin: 0 0 28px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .authors {
+      font-family: var(--font-serif);
+      font-size: 19px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .authors a {
+      color: var(--text);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .authors a:hover {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    .affiliations {
+      font-family: var(--font-serif);
+      font-size: 17px;
+      font-style: italic;
+      color: var(--text-muted);
+      margin-bottom: 36px;
+    }
+
+    .publication-links {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 22px;
+      background: var(--text);
+      color: var(--surface);
+      font-family: var(--font-serif);
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: 0;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: transform 0.15s ease, background 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn:hover {
+      background: var(--accent);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn .icon {
+      display: inline-flex;
+      font-size: 15px;
+    }
+
+    /* ===== Abstract ===== */
+    .abstract-section {
+      padding: 56px 0;
+    }
+
+    .abstract-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 48px 56px;
+      max-width: 880px;
+      margin: 0 auto;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .section-heading {
+      font-family: var(--font-serif);
+      font-weight: 600;
+      font-size: 28px;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin: 0 0 24px;
+      text-align: center;
+    }
+
+    .abstract-text {
+      font-family: var(--font-serif);
+      font-size: 17px;
+      line-height: 1.75;
+      color: var(--text);
+      text-align: justify;
+      margin: 0;
+    }
+
+    /* ===== Demo Sections ===== */
+    .demo-section {
+      padding: 56px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .section-eyebrow {
+      display: inline-block;
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-soft);
+      padding: 5px 12px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: var(--font-serif);
+      font-weight: 600;
+      font-size: 32px;
+      letter-spacing: -0.015em;
+      color: var(--text);
+      margin: 0 0 12px;
+    }
+
+    .section-subtitle {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--text-muted);
+      max-width: 760px;
+      margin: 0 auto;
+      line-height: 1.55;
+    }
+
+    .subsection-title {
+      font-family: var(--font-serif);
+      font-weight: 600;
+      font-size: 22px;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      text-align: center;
+      margin: 48px 0 24px;
+    }
+
+    .subsection-title::before,
+    .subsection-title::after {
+      content: "";
+      display: inline-block;
+      width: 60px;
+      height: 1px;
+      background: var(--border);
+      vertical-align: middle;
+      margin: 0 18px;
+    }
+
+    .subsection-title sub {
+      font-size: 0.7em;
+      font-weight: 500;
+      vertical-align: sub;
+      margin-left: 1px;
+    }
+
+    /* ===== Tables ===== */
+    .table-wrap {
+      overflow-x: auto;
+      margin: 0 auto;
+      max-width: 100%;
+      padding: 4px;
+    }
+
+    .demo-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      font-family: var(--font-serif);
+    }
+
+    .demo-table th {
+      background: var(--surface-2);
+      font-family: var(--font-serif);
+      font-weight: 600;
+      font-size: 15px;
+      letter-spacing: -0.005em;
+      color: var(--text);
+      padding: 16px 16px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    .demo-table td {
+      padding: 16px 14px;
+      text-align: center;
+      vertical-align: middle;
+      border-bottom: 1px solid var(--border);
+      font-family: var(--font-serif);
+      font-size: 15px;
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    .demo-table td.text-cell {
+      white-space: normal;
+    }
+
+    .demo-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .demo-table tr:hover td {
+      background: rgba(204, 120, 92, 0.03);
+    }
+
+    .text-cell {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 500;
+      color: var(--text);
+      min-width: 240px;
+      max-width: 280px;
+      text-align: left;
+      line-height: 1.5;
+    }
+
+    /* ===== Audio player ===== */
+    audio {
+      display: block;
+      width: 200px;
+      min-width: 200px;
+      height: 36px;
+      margin: 0 auto;
+      border-radius: 999px;
+      outline: none;
+    }
+
+    audio::-webkit-media-controls-panel {
+      background-color: var(--surface-2);
+    }
+
+    audio::-webkit-media-controls-play-button,
+    audio::-webkit-media-controls-mute-button {
+      filter: invert(0.1);
+    }
+
+    /* ===== Divider ===== */
+    .divider {
+      border: none;
+      height: 1px;
+      background: var(--border);
+      max-width: 200px;
+      margin: 24px auto;
+    }
+
+    /* ===== Footer ===== */
+    footer {
+      padding: 48px 0 64px;
+      text-align: center;
+      font-family: var(--font-sans);
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 768px) {
+      .publication-title { font-size: 30px; }
+      .section-title { font-size: 26px; }
+      .abstract-card { padding: 32px 24px; }
+      .container { padding: 0 20px; }
+      .hero-section { padding: 56px 0 32px; }
+      .demo-table th,
+      .demo-table td { padding: 10px 8px; font-size: 12px; }
+      audio { width: 160px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== Hero ===== -->
+<section class="hero-section">
+  <div class="container">
+    <h1 class="publication-title">
+      Towards Real-World Environment-Aware Zero-Shot Text-to-Speech Synthesis via Disentangled Audio Infilling
+    </h1>
+
+    <div class="authors">
+      <a href="https://yxlu-0102.github.io" target="_blank"><b>Ye-Xin Lu</b><sup>1,2</sup></a>,
+      <a href="https://tonywangx.github.io" target="_blank">Xin Wang<sup>2</sup></a>,
+      <a href="https://nii-yamagishilab.github.io/" target="_blank">Junichi Yamagishi<sup>2</sup></a>
+    </div>
+
+    <div class="affiliations">
+      <sup>1</sup>University of Science and Technology of China &nbsp;·&nbsp;
+      <sup>2</sup>National Institute of Informatics, Japan
+    </div>
+
+    <div class="publication-links">
+      <a href="" target="_blank" class="btn">
+        <span class="icon"><i class="ai ai-arxiv"></i></span>
+        <span>Paper (coming soon)</span>
+      </a>
+      <a href="https://yxlu-0102.github.io/DAIEN-TTS" target="_blank" class="btn">
+        <span class="icon"><i class="fas fa-file-alt"></i></span>
+        <span>Conference Version</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Abstract ===== -->
+<section class="abstract-section">
+  <div class="container">
+    <div class="abstract-card">
+      <h2 class="section-heading">Abstract</h2>
+      <p class="abstract-text">
+        Recent zero-shot text-to-speech (TTS) systems achieve remarkable naturalness and speaker similarity, but typically assume high-quality speaker prompts and either strip away or entangle the acoustic environment with speaker characteristics, which limits their applicability in real-world scenarios.
+        In this paper, we present <b>DAIEN-TTS</b>, an environment-aware zero-shot TTS framework that disentangles and jointly models speech, background noise, and reverberation, enabling independent control over timbre and acoustic environment through separate speaker and environment prompts.
+        Built upon the flow-matching-based F5-TTS, DAIEN-TTS employs a speech-environment separation module to decompose environmental speech into speech, noise, and reverberation components, which are then injected into the diffusion transformer to enable environment-aware generation.
+        The system is first trained on simulated data constructed by mixing clean speech with noise and room impulse responses, with a cross-speaker conditioning strategy to suppress speaker information leakage from the environment branch, and then fine-tuned on real-world speech data to bridge the simulated-to-real domain gap.
+        At inference, a triple classifier-free guidance mechanism enables fine-grained control over speech, noise, and reverberation, along with an SNR adaptation strategy to align the synthesized speech with the environment prompt.
+        Experiments on both simulated and real-world test sets show that DAIEN-TTS generates environmental personalized speech with high naturalness, strong speaker similarity, and faithful noise and reverberation reproduction, while offering controllability beyond prior environment-aware TTS systems.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Section I ===== -->
+<section class="demo-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow">Section I</span>
+      <h2 class="section-title">Environment-Robust Generation</h2>
+      <p class="section-subtitle">Synthesizing clean speech with a silence environment prompt, under clean or noisy-reverberant speaker prompts.</p>
+    </div>
+
+    <h3 class="subsection-title">Clean Speaker Prompt</h3>
+    <div class="table-wrap">
+      <table class="demo-table">
+        <thead>
+          <tr>
+            <th>Text</th>
+            <th>Speaker Prompt</th>
+            <th>Ground Truth</th>
+            <th>F5-TTS</th>
+            <th>DAIEN-TTS&dagger;</th>
+            <th>DAIEN-TTS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-cell">Then why should they be surprised when they see one?</td>
+            <td><audio controls><source src="samples/ER-TTS_new/Clean-Prompt/A/A_04.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/ER-TTS_new/Clean-Prompt/B/B_04.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/ER-TTS_new/Clean-Prompt/C/C_04.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/ER-TTS_new/Clean-Prompt/D/D_04.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/ER-TTS_new/Clean-Prompt/E/E_04.wav" type="audio/wav"></audio></td>
+          </tr>
+          <tr>
+            <td class="text-cell">Her old man was Doc Mitchell.</td>
+            <td><audio controls><source src="samples/ER-TTS_new/Clean-Prompt/A/A_02.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/ER-TTS_new/Clean-Prompt/B/B_02.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/ER-TTS_new/Clean-Prompt/C/C_02.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/ER-TTS_new/Clean-Prompt/D/D_02.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/ER-TTS_new/Clean-Prompt/E/E_02.wav" type="audio/wav"></audio></td>
+          </tr>
+          <tr>
+            <td class="text-cell">He didn't consider mending the hole — the stones could fall through any time they wanted.</td>
+            <td><audio controls><source src="samples/ER-TTS_new/Clean-Prompt/A/A_03.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/ER-TTS_new/Clean-Prompt/B/B_03.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/ER-TTS_new/Clean-Prompt/C/C_03.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/ER-TTS_new/Clean-Prompt/D/D_03.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/ER-TTS_new/Clean-Prompt/E/E_03.wav" type="audio/wav"></audio></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="subsection-title">Simulated Environmental Speaker Prompt</h3>
+    <div class="table-wrap">
+      <table class="demo-table">
+        <thead>
+          <tr>
+            <th>Text</th>
+            <th>Speaker Prompt</th>
+            <th>Ground Truth</th>
+            <th>F5-TTS</th>
+            <th>DAIEN-TTS&dagger;</th>
+            <th>DAIEN-TTS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-cell">The silty bottom of the gulf also contributes to the high turbidity.</td>
+            <td><audio controls><source src="samples/ER-TTS_new/Noisy-Reverb-Prompt/F/F_07.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/ER-TTS_new/Noisy-Reverb-Prompt/B/B_07.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/ER-TTS_new/Noisy-Reverb-Prompt/C/C_07.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/ER-TTS_new/Noisy-Reverb-Prompt/D/D_07.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/ER-TTS_new/Noisy-Reverb-Prompt/E/E_07.wav" type="audio/wav"></audio></td>
+          </tr>
+          <tr>
+            <td class="text-cell">It was named for Doctor Joseph Warren, Revolutionary War patriot.</td>
+            <td><audio controls><source src="samples/ER-TTS_new/Noisy-Reverb-Prompt/F/F_08.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/ER-TTS_new/Noisy-Reverb-Prompt/B/B_08.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/ER-TTS_new/Noisy-Reverb-Prompt/C/C_08.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/ER-TTS_new/Noisy-Reverb-Prompt/D/D_08.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/ER-TTS_new/Noisy-Reverb-Prompt/E/E_08.wav" type="audio/wav"></audio></td>
+          </tr>
+          <tr>
+            <td class="text-cell">This new material had stronger alloys in the iron.</td>
+            <td><audio controls><source src="samples/ER-TTS_new/Noisy-Reverb-Prompt/F/F_10.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/ER-TTS_new/Noisy-Reverb-Prompt/B/B_10.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/ER-TTS_new/Noisy-Reverb-Prompt/C/C_10.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/ER-TTS_new/Noisy-Reverb-Prompt/D/D_10.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/ER-TTS_new/Noisy-Reverb-Prompt/E/E_10.wav" type="audio/wav"></audio></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ===== Section II ===== -->
+<section class="demo-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow">Section II</span>
+      <h2 class="section-title">Environment-Aware Generation</h2>
+      <p class="section-subtitle">Synthesizing environmental personalized speech that reproduces the acoustic environment specified by the environment prompt.</p>
+    </div>
+
+    <h3 class="subsection-title">Simulated Environmental Prompts</h3>
+    <div class="table-wrap">
+      <table class="demo-table">
+        <thead>
+          <tr>
+            <th>Text</th>
+            <th>Speaker Prompt</th>
+            <th>Environment Prompt</th>
+            <th>Ground Truth</th>
+            <th>F5-TTS</th>
+            <th>DAIEN-TTS&dagger;</th>
+            <th>DAIEN-TTS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-cell">The remaining singles failed to hit the dance chart.</td>
+            <td><audio controls><source src="samples/EA-TTS_new/Synthetic-Prompts/A/A_07.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/Synthetic-Prompts/B/B_07.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/Synthetic-Prompts/C/C_07.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/Synthetic-Prompts/D/D_07.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/Synthetic-Prompts/E/E_07.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/Synthetic-Prompts/F/F_07.wav" type="audio/wav"></audio></td>
+          </tr>
+          <tr>
+            <td class="text-cell">He later worked as a journalist, and then became a novelist and playwright.</td>
+            <td><audio controls><source src="samples/EA-TTS_new/Synthetic-Prompts/A/A_13.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/Synthetic-Prompts/B/B_13.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/Synthetic-Prompts/C/C_13.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/Synthetic-Prompts/D/D_13.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/Synthetic-Prompts/E/E_13.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/Synthetic-Prompts/F/F_13.wav" type="audio/wav"></audio></td>
+          </tr>
+          <tr>
+            <td class="text-cell">Palmer switched political parties throughout his life, starting out a Democrat.</td>
+            <td><audio controls><source src="samples/EA-TTS_new/Synthetic-Prompts/A/A_17.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/Synthetic-Prompts/B/B_17.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/Synthetic-Prompts/C/C_17.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/Synthetic-Prompts/D/D_17.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/Synthetic-Prompts/E/E_17.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/Synthetic-Prompts/F/F_17.wav" type="audio/wav"></audio></td>
+          </tr>
+          <tr>
+            <td class="text-cell">Then why should they be surprised when they see one?</td>
+            <td><audio controls><source src="samples/EA-TTS_new/Synthetic-Prompts/A/A_02.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/Synthetic-Prompts/B/B_02.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/Synthetic-Prompts/C/C_02.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/Synthetic-Prompts/D/D_02.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/Synthetic-Prompts/E/E_02.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/Synthetic-Prompts/F/F_02.wav" type="audio/wav"></audio></td>
+          </tr>
+          <tr>
+            <td class="text-cell">He has also made three solo albums.</td>
+            <td><audio controls><source src="samples/EA-TTS_new/Synthetic-Prompts/A/A_03.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/Synthetic-Prompts/B/B_03.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/Synthetic-Prompts/C/C_03.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/Synthetic-Prompts/D/D_03.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/Synthetic-Prompts/E/E_03.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/Synthetic-Prompts/F/F_03.wav" type="audio/wav"></audio></td>
+          </tr>
+          <tr>
+            <td class="text-cell">This new material had stronger alloys in the iron.</td>
+            <td><audio controls><source src="samples/EA-TTS_new/Synthetic-Prompts/A/A_08.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/Synthetic-Prompts/B/B_08.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/Synthetic-Prompts/C/C_08.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/Synthetic-Prompts/D/D_08.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/Synthetic-Prompts/E/E_08.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/Synthetic-Prompts/F/F_08.wav" type="audio/wav"></audio></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="subsection-title">Real-World Environmental Prompts</h3>
+    <div class="table-wrap">
+      <table class="demo-table">
+        <thead>
+          <tr>
+            <th>Text</th>
+            <th>Speaker Prompt</th>
+            <th>Environment Prompt</th>
+            <th>F5-TTS</th>
+            <th>DAIEN-TTS&dagger;</th>
+            <th>DAIEN-TTS</th>
+            <th>DAIEN-TTS-FT</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-cell">One way led to the left and the other to the right-straight up the mountain.</td>
+            <td><audio controls><source src="samples/EA-TTS_new/Real-World-Prompts/A/A_09.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/Real-World-Prompts/B/B_09.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/Real-World-Prompts/C/C_09.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/Real-World-Prompts/D/D_09.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/Real-World-Prompts/E/E_09.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/Real-World-Prompts/F/F_09.wav" type="audio/wav"></audio></td>
+          </tr>
+          <tr>
+            <td class="text-cell">Thus walk I through my wonderland While all the evening is atune, Beneath the cypress trees that stand Like candles to the barren moon.</td>
+            <td><audio controls><source src="samples/EA-TTS_new/Real-World-Prompts/A/A_11.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/Real-World-Prompts/B/B_11.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/Real-World-Prompts/C/C_11.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/Real-World-Prompts/D/D_11.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/Real-World-Prompts/E/E_11.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/Real-World-Prompts/F/F_11.wav" type="audio/wav"></audio></td>
+          </tr>
+          <tr>
+            <td class="text-cell">I say you do know what this means, and you must tell us.</td>
+            <td><audio controls><source src="samples/EA-TTS_new/Real-World-Prompts/A/A_18.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/Real-World-Prompts/B/B_18.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/Real-World-Prompts/C/C_18.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/Real-World-Prompts/D/D_18.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/Real-World-Prompts/E/E_18.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/Real-World-Prompts/F/F_18.wav" type="audio/wav"></audio></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ===== Section III ===== -->
+<section class="demo-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow">Section III</span>
+      <h2 class="section-title">TCFG Controllability</h2>
+      <p class="section-subtitle">Demonstrating independent control over noise and reverberation by varying TCFG scales.</p>
+    </div>
+
+    <h3 class="subsection-title">Varying &alpha;<sub>noise</sub> &nbsp;(fixed &alpha;<sub>speech</sub>=1, &alpha;<sub>reverb</sub>=6)</h3>
+    <div class="table-wrap">
+      <table class="demo-table">
+        <thead>
+          <tr>
+            <!-- <th>Speaker Prompt</th>
+            <th>Environment Prompt</th> -->
+            <th>Ground Truth</th>
+            <th>1 : 0 : 6</th>
+            <th>1 : 3 : 6</th>
+            <th>1 : 6 : 6</th>
+            <th>1 : 9 : 6</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <!-- <td><audio controls><source src="samples/EA-TTS_new/TCFG/Noise_CFG/A/A_20.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/TCFG/Noise_CFG/B/B_20.wav" type="audio/wav"></audio></td> -->
+            <td><audio controls><source src="samples/EA-TTS_new/TCFG/Noise_CFG/C/C_20.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/TCFG/Noise_CFG/D/D_20.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/TCFG/Noise_CFG/E/E_20.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/TCFG/Noise_CFG/F/F_20.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/TCFG/Noise_CFG/G/G_20.wav" type="audio/wav"></audio></td>
+          </tr>
+          <tr>
+            <!-- <td><audio controls><source src="samples/EA-TTS_new/TCFG/Noise_CFG/A/A_14.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/TCFG/Noise_CFG/B/B_14.wav" type="audio/wav"></audio></td> -->
+            <td><audio controls><source src="samples/EA-TTS_new/TCFG/Noise_CFG/C/C_14.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/TCFG/Noise_CFG/D/D_14.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/TCFG/Noise_CFG/E/E_14.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/TCFG/Noise_CFG/F/F_14.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/TCFG/Noise_CFG/G/G_14.wav" type="audio/wav"></audio></td>
+          </tr>
+          <tr>
+            <!-- <td><audio controls><source src="samples/EA-TTS_new/TCFG/Noise_CFG/A/A_16.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/TCFG/Noise_CFG/B/B_16.wav" type="audio/wav"></audio></td> -->
+            <td><audio controls><source src="samples/EA-TTS_new/TCFG/Noise_CFG/C/C_16.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/TCFG/Noise_CFG/D/D_16.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/TCFG/Noise_CFG/E/E_16.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/TCFG/Noise_CFG/F/F_16.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/TCFG/Noise_CFG/G/G_16.wav" type="audio/wav"></audio></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="subsection-title">Varying &alpha;<sub>reverb</sub> &nbsp;(fixed &alpha;<sub>speech</sub>=1, &alpha;<sub>noise</sub>=3)</h3>
+    <div class="table-wrap">
+      <table class="demo-table">
+        <thead>
+          <tr>
+            <!-- <th>Speaker Prompt</th>
+            <th>Environment Prompt</th> -->
+            <th>Ground Truth</th>
+            <th>1 : 3 : 0</th>
+            <th>1 : 3 : 3</th>
+            <th>1 : 3 : 6</th>
+            <th>1 : 3 : 9</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <!-- <td><audio controls><source src="samples/EA-TTS_new/TCFG/Reverb_CFG/A/A_20.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/TCFG/Reverb_CFG/B/B_20.wav" type="audio/wav"></audio></td> -->
+            <td><audio controls><source src="samples/EA-TTS_new/TCFG/Reverb_CFG/C/C_20.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/TCFG/Reverb_CFG/D/D_20.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/TCFG/Reverb_CFG/E/E_20.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/TCFG/Reverb_CFG/F/F_20.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/TCFG/Reverb_CFG/G/G_20.wav" type="audio/wav"></audio></td>
+          </tr>
+          <tr>
+            <!-- <td><audio controls><source src="samples/EA-TTS_new/TCFG/Reverb_CFG/A/A_14.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/TCFG/Reverb_CFG/B/B_14.wav" type="audio/wav"></audio></td> -->
+            <td><audio controls><source src="samples/EA-TTS_new/TCFG/Reverb_CFG/C/C_14.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/TCFG/Reverb_CFG/D/D_14.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/TCFG/Reverb_CFG/E/E_14.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/TCFG/Reverb_CFG/F/F_14.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/TCFG/Reverb_CFG/G/G_14.wav" type="audio/wav"></audio></td>
+          </tr>
+          <tr>
+            <!-- <td><audio controls><source src="samples/EA-TTS_new/TCFG/Reverb_CFG/A/A_16.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/TCFG/Reverb_CFG/B/B_16.wav" type="audio/wav"></audio></td> -->
+            <td><audio controls><source src="samples/EA-TTS_new/TCFG/Reverb_CFG/C/C_16.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/TCFG/Reverb_CFG/D/D_16.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/TCFG/Reverb_CFG/E/E_16.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/TCFG/Reverb_CFG/F/F_16.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/TCFG/Reverb_CFG/G/G_16.wav" type="audio/wav"></audio></td>
+          </tr>
+          <!-- <tr>
+            <td><audio controls><source src="samples/EA-TTS_new/TCFG/Reverb_CFG/A/A_17.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/TCFG/Reverb_CFG/B/B_17.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/TCFG/Reverb_CFG/C/C_17.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/TCFG/Reverb_CFG/D/D_17.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/TCFG/Reverb_CFG/E/E_17.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/TCFG/Reverb_CFG/F/F_17.wav" type="audio/wav"></audio></td>
+            <td><audio controls><source src="samples/EA-TTS_new/TCFG/Reverb_CFG/G/G_17.wav" type="audio/wav"></audio></td>
+          </tr> -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    DAIEN-TTS &nbsp;·&nbsp; Demo Page
+  </div>
+</footer>
+
+</body>
+</html>
